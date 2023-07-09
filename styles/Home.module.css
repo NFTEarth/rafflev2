@@ -6,14 +6,14 @@
 }
 
 .gradientText0 {
-  background: -webkit-linear-gradient(#bfa3da, #84309c, #c735b0);
+  background: -webkit-linear-gradient(#a6daa3, #309c61, #c735b0);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .gradientText1 {
-  background: -webkit-linear-gradient(#a79af9, #7aa8d2);
+  background: -webkit-linear-gradient(#9af9b2, #7aa8d2);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -41,17 +41,18 @@
 }
 
 .title {
-  line-height: 1.15;
+  line-height: 2;
   font-size: 4rem;
 }
 
 .title,
 .description {
-  text-align: left;
+  text-align: center;
 }
 
 .connect {
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 .description {
@@ -62,7 +63,7 @@
 }
 
 .code {
-  background: #555;
+  background: #76e056;
   border-radius: 5px;
   padding: 0.5em;
   font-size: 1.1rem;
@@ -138,7 +139,7 @@
 
 .card,
 .footer {
-  border-color: #222;
+  border-color: #36e730;
 }
 .logo img {
   filter: invert(1);

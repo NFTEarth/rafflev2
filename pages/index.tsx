@@ -1,108 +1,122 @@
-import { ConnectWallet } from "@thirdweb-dev/react";
-import styles from "../styles/Home.module.css";
-import Image from "next/image";
-import { NextPage } from "next";
+import type { NextPage } from "next";
+import { Box, Button, Container, Flex, Input, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import { MediaRenderer, Web3Button, useAddress, useContract, useContractRead } from "@thirdweb-dev/react";
+import { HERO_IMAGE_URL, LOTTERY_CONTRACT_ADDRESS } from "../const/addresses";
+import LotteryStatus from "../components/Status";
+import { ethers } from "ethers";
+import PrizeNFT from "../components/PrizeNFT";
+import { useState } from "react";
+import CurrentEntries from "../components/CurrentEntries";
 
 const Home: NextPage = () => {
+  const address = useAddress();
+
+  const {
+    contract
+  } = useContract(LOTTERY_CONTRACT_ADDRESS);
+
+  const {
+    data: lotteryStatus
+  } = useContractRead(contract, "lotteryStatus");
+
+  const {
+    data: ticketCost,
+    isLoading: ticketCostLoading
+  } = useContractRead(contract, "ticketCost");
+  const ticketCostInEther = ticketCost ? ethers.utils.formatEther(ticketCost) : "0";
+
+  const {
+    data: totalEntries,
+    isLoading: totalEntriesLoading
+  } = useContractRead(contract, "totalEntries");
+
+  const [ticketAmount, setTicketAmount] = useState(0);
+  const ticketCostSubmit = parseFloat(ticketCostInEther) * ticketAmount;
+
+  function increaseTicketAmount() {
+    setTicketAmount(ticketAmount + 1);
+  }
+
+  function decreaseTicketAmount() {
+    if (ticketAmount > 0) {
+      setTicketAmount(ticketAmount - 1);
+    }
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <h1 className={styles.title}>
-            Welcome to{" "}
-            <span className={styles.gradientText0}>
-              <a
-                href="https://thirdweb.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                thirdweb.
-              </a>
-            </span>
-          </h1>
-
-          <p className={styles.description}>
-            Get started by configuring your desired network in{" "}
-            <code className={styles.code}>src/index.js</code>, then modify the{" "}
-            <code className={styles.code}>src/App.js</code> file!
-          </p>
-
-          <div className={styles.connect}>
-            <ConnectWallet
-              dropdownPosition={{
-                side: "bottom",
-                align: "center",
-              }}
+    <Container maxW={"1440px"}>
+      <SimpleGrid columns={2} spacing={4} minH={"60vh"}>
+        <Flex justifyContent={"center"} alignItems={"center"}>
+          {lotteryStatus ? (
+            <PrizeNFT/>
+          ) : (
+            <MediaRenderer
+              src={HERO_IMAGE_URL}
+              width="100%"
+              height="100%"
             />
-          </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://portal.thirdweb.com/"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/images/portal-preview.png"
-              alt="Placeholder preview of starter"
-              width={300}
-              height={200}
-            />
-            <div className={styles.cardText}>
-              <h2 className={styles.gradientText1}>Portal ➜</h2>
-              <p>
-                Guides, references, and resources that will help you build with
-                thirdweb.
-              </p>
-            </div>
-          </a>
-
-          <a
-            href="https://thirdweb.com/dashboard"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/images/dashboard-preview.png"
-              alt="Placeholder preview of starter"
-              width={300}
-              height={200}
-            />
-            <div className={styles.cardText}>
-              <h2 className={styles.gradientText2}>Dashboard ➜</h2>
-              <p>
-                Deploy, configure, and manage your smart contracts from the
-                dashboard.
-              </p>
-            </div>
-          </a>
-
-          <a
-            href="https://thirdweb.com/templates"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/images/templates-preview.png"
-              alt="Placeholder preview of templates"
-              width={300}
-              height={200}
-            />
-            <div className={styles.cardText}>
-              <h2 className={styles.gradientText3}>Templates ➜</h2>
-              <p>
-                Discover and clone template projects showcasing thirdweb
-                features.
-              </p>
-            </div>
-          </a>
-        </div>
-      </div>
-    </main>
+          )}
+          
+        </Flex>
+        <Flex justifyContent={"center"} alignItems={"center"} p={"5%"}>
+          <Stack spacing={10}>
+            <Box>
+              <Text fontSize={"xl"}>NFTΞarth Raffle</Text>
+              <Text fontSize={"4xl"} fontWeight={"bold"}>Games have FINALLY arrived on Layer2! Buy an entry ticket for a change to win the NFT Prize!</Text>
+            </Box>
+            
+            <Text fontSize={"xl"}>Buy Raffle entries for a chance to win the Prize NFT! Winner will be selected at random and transferred the NFT. The more entries you buy, the higher chance you have of winning the prize!</Text>
+            
+            <LotteryStatus status={lotteryStatus}/>
+            {!ticketCostLoading && (
+              <Text fontSize={"2xl"} fontWeight={"bold"}>Cost Per Entry Ticket: {ticketCostInEther} ETH</Text>
+            )}
+            {address ? (
+              <Flex flexDirection={"row"}>
+                <Flex flexDirection={"row"} w={"25%"} mr={"40px"}>
+                  <Button
+                    onClick={decreaseTicketAmount}
+                  >-</Button>
+                  <Input
+                    value={ticketAmount}
+                    type={"number"}
+                    onChange={(e) => setTicketAmount(parseInt(e.target.value))}
+                    textAlign={"center"}
+                    mx={2}
+                  />
+                  <Button
+                    onClick={increaseTicketAmount}
+                  >+</Button>
+                </Flex>
+                
+                <Web3Button
+                  contractAddress={LOTTERY_CONTRACT_ADDRESS}
+                  action={(contract) => contract.call(
+                    "buyTicket",
+                    [
+                      ticketAmount
+                    ],
+                    {
+                      value: ethers.utils.parseEther(ticketCostSubmit.toString())
+                    }
+                  )}
+                  isDisabled={!lotteryStatus}
+                >{`Buy Raffle Ticket(s)`}</Web3Button>
+              </Flex>
+            ) : (
+              <Text>Connect wallet to buy ticket.</Text>
+            )}
+            {!totalEntriesLoading && (
+              <Text>Total Entries: {totalEntries.toString()}</Text>
+            )}
+          </Stack>
+        </Flex>
+      </SimpleGrid>
+      <Stack mt={"40px"} textAlign={"center"}>
+        <Text fontSize={"xl"}>Current Raffle Participants:</Text>
+        <CurrentEntries/>
+      </Stack>
+    </Container>
   );
 };
 
