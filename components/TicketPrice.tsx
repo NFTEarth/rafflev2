@@ -29,7 +29,7 @@ export default function AdminTicketPriceCard() {
             <Box>
                 <Text fontWeight={"bold"} mb={4} fontSize={"xl"}>Ticket Price</Text>
                 {!ticketCostLoading ? (
-                    <Text fontSize={"xl"}>{ethers.utils.formatEther(ticketCost)} MATIC</Text>
+                    <Text fontSize={"xl"}>{ethers.utils.formatEther(ticketCost)} ETH</Text>
                 ) : (
                     <Spinner />
                 )}
