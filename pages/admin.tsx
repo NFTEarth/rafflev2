@@ -33,7 +33,7 @@ export default function Admin() {
                         <Box>
                             <Text fontWeight={"bold"} mb={4} fontSize={"xl"}>Contract Balance</Text>
                             {!contractBalanceLoading ? (
-                                <Text fontSize={"xl"}>{ethers.utils.formatEther(contractBalance)} MATIC</Text>
+                                <Text fontSize={"xl"}>{ethers.utils.formatEther(contractBalance)} ETH</Text>
                             ) : (
                                 <Spinner />
                             )}
