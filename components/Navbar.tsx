@@ -21,7 +21,7 @@ export default function Navbar() {
         <Container maxW={"1440px"} py={8}>
             <Flex flexDirection={"row"} justifyContent={"space-between"} alignItems={"center"}>
                 <Link href={"/"}>
-                    <Text fontSize={"xl"} fontWeight={"bold"}>Raffle App</Text>
+                    <Text fontSize={"xl"} fontWeight={"bold"}>NFTEarth Raffle</Text>
                 </Link>
                 <Flex flexDirection={"row"} alignItems={"center"}>
                     {!adminLoading && address === admin && (
