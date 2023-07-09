@@ -11,7 +11,7 @@ const LotteryStatus: React.FC<Props> = ({ status }) => {
 
     return (
         <Card py={2} textAlign={"center"} backgroundColor={backgroundColor} border={"1px solid"} borderColor={borderColor}>
-            <Text fontWeight={"bold"} color={textColor} fontSize={"sm"}>Lottery Status: {status ? "Live" : "Pending"}</Text>
+            <Text fontWeight={"bold"} color={textColor} fontSize={"sm"}>Lottery Status: {status ? "Open" : "Closed"}</Text>
         </Card>
     )
 };
