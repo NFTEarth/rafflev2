@@ -113,7 +113,7 @@ const Home: NextPage = () => {
         </Flex>
       </SimpleGrid>
       <Stack mt={"40px"} textAlign={"center"}>
-        <Text fontSize={"xl"}>Current Raffle Participants:</Text>
+        <Text fontSize={"xl"}>Real-Time Raffle Participants:</Text>
         <CurrentEntries/>
       </Stack>
     </Container>
