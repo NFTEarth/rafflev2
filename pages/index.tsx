@@ -62,10 +62,12 @@ const Home: NextPage = () => {
           <Stack spacing={10}>
             <Box>
               <Text fontSize={"xl"}>NFTΞarth Raffle</Text>
-              <Text fontSize={"4xl"} fontWeight={"bold"}>Games have FINALLY arrived on Layer2! Buy an entry ticket for a change to win the NFT Prize!</Text>
+              <Text fontSize={"4xl"} fontWeight={"bold"}>GameFi has arrived on Layer2! Buy raffle entry tickets here for a chance to win the NFT Prize! <br> 
+               View the Smol Bodies NFT 2309 on Treasure https://app.treasure.lol/collection/smol-bodies/2309 or NFTEarth </br>
+              </Text>
             </Box>
             
-            <Text fontSize={"xl"}>Buy Raffle entries for a chance to win the Prize NFT! Winner will be selected at random and transferred the NFT. The more entries you buy, the higher chance you have of winning the prize!</Text>
+            <Text fontSize={"xl"}>Buy Raffle entries for a chance to win the Grand Prize NFT! Winner will be selected at random and transferred the NFT. The more entries you buy, the higher chance you have of winning the prize!</Text>
             
             <LotteryStatus status={lotteryStatus}/>
             {!ticketCostLoading && (
