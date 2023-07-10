@@ -61,17 +61,15 @@ const Home: NextPage = () => {
         <Flex justifyContent={"center"} alignItems={"center"} p={"5%"}>
           <Stack spacing={10}>
             <Box>
-              <Text fontSize={"xl"}>NFTΞarth Raffle</Text>
-              <Text fontSize={"4xl"} fontWeight={"bold"}>GameFi has arrived on Layer2! Buy raffle entry tickets here for a chance to win the NFT Prize! <br> 
-               View the Smol Bodies NFT 2309 on Treasure https://app.treasure.lol/collection/smol-bodies/2309 or NFTEarth </br>
-              </Text>
+              <Text fontSize={"xl"}> NFTΞarth Raffle </Text>
+              <Text fontSize={"4xl"} fontWeight={"bold"}>GameFi has arrived on Layer2! Buy raffle entry tickets here for a chance to win the NFT Prize! </Text>
             </Box>
             
-            <Text fontSize={"xl"}>Buy Raffle entries for a chance to win the Grand Prize NFT! Winner will be selected at random and transferred the NFT. The more entries you buy, the higher chance you have of winning the prize!</Text>
+            <Text fontSize={"xl"}>Buy Raffle entries for a chance to win the Grand Prize NFT! Winner will be selected at random and transferred the NFT. The more entries you buy, the higher chance you have of winning the prize! </Text>
             
             <LotteryStatus status={lotteryStatus}/>
             {!ticketCostLoading && (
-              <Text fontSize={"2xl"} fontWeight={"bold"}>Cost Per Entry Ticket: {ticketCostInEther} ETH</Text>
+              <Text fontSize={"2xl"} fontWeight={"bold"}> Cost Per Entry Ticket: {ticketCostInEther} ETH </Text>
             )}
             {address ? (
               <Flex flexDirection={"row"}>
@@ -115,7 +113,7 @@ const Home: NextPage = () => {
         </Flex>
       </SimpleGrid>
       <Stack mt={"40px"} textAlign={"center"}>
-        <Text fontSize={"xl"}>Real-Time Raffle Participants:</Text>
+        <Text fontSize={"xl"}> Real-Time Raffle Participants: </Text>
         <CurrentEntries/>
       </Stack>
     </Container>
